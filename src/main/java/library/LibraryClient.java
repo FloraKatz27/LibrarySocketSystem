@@ -1,5 +1,7 @@
 package library;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.io.PrintWriter;
 
@@ -17,6 +19,12 @@ public class LibraryClient {
             writer.println("Borrow Harry Potter");
 
             System.out.println("Request sent to server.");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            String response = reader.readLine();
+
+            System.out.println("Server replied: " + response);
         } catch (IOException e) {
             System.out.println("Client error:" + e.getMessage());
         }

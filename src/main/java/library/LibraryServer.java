@@ -1,5 +1,6 @@
 package library;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.BufferedReader;
@@ -27,6 +28,12 @@ public class LibraryServer {
             String request = reader.readLine();
 
             System.out.println("Client says: " + request);
+
+            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            writer.println("Book borrowed successfully!");
+
+            System.out.println("Reply sent to client.");
         } catch (IOException e) {
             System.out.println("Server error: " + e.getMessage());
         }
