@@ -2,6 +2,8 @@ package library;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 public class LibraryServer {
@@ -19,6 +21,12 @@ public class LibraryServer {
             Socket clientSocket = serverSocket.accept();
 
             System.out.println("A client has connected.");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            String request = reader.readLine();
+
+            System.out.println("Client says: " + request);
         } catch (IOException e) {
             System.out.println("Server error: " + e.getMessage());
         }
