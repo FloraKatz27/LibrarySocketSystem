@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class LibraryServer {
     public static void main(String[] args) {
-        System.out.println("Starting library server...");
+        System.out.println("Starting server...");
 
         //ServerSocket serverSocket;
         try {

@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="163e5da2-a1f4-43a4-baee-a5507bc48923" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/library/LibraryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/library/LibraryClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/library/LibraryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/library/LibraryServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,13 +36,36 @@
   "keyToString": {
     "Application.LibraryClient.executor": "Run",
     "Application.LibraryServer.executor": "Run",
+    "Maven.LibrarySocketSystem [compile].executor": "Run",
+    "Maven.LibrarySocketSystem.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="LibraryClient" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="library.LibraryClient" />
+      <module name="LibrarySocketSystem" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="compile" />
+      </method>
+    </configuration>
+    <configuration name="LibraryServer" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="library.LibraryServer" />
+      <module name="LibrarySocketSystem" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="compile" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.LibraryServer" />
+      <item itemvalue="Application.LibraryClient" />
+    </list>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
