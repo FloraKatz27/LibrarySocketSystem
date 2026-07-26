@@ -16,7 +16,7 @@ public class LibraryClient {
 
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-            writer.println("Borrow Harry Potter");
+            writer.println("BORROW Harry Potter");
 
             System.out.println("Request sent to server.");
 

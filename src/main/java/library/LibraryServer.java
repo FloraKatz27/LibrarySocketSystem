@@ -31,7 +31,28 @@ public class LibraryServer {
 
             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
 
-            writer.println("Book borrowed successfully!");
+            String[] parts = request.split(" ", 2);
+
+            if (parts.length < 2) {
+                writer.println("Error: book title is required.");
+            } else {
+                String command = parts[0];
+                String title = parts[1];
+
+                command = command.toUpperCase();
+
+                if (command.equals("BORROW")) {
+                    writer.println("Borrowing: " + parts[1]);
+                } else if (command.equals("RETURN")) {
+                    writer.println("Returning: " + parts[1]);
+                } else if (command.equals("SEARCH")) {
+                    writer.println("Searching for: " + parts[1]);
+                } else {
+                    writer.println("Unknown command.");
+                }
+
+                writer.println("Command received: " + command + ", book:" + title);
+            }
 
             System.out.println("Reply sent to client.");
         } catch (IOException e) {
