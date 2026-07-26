@@ -13,11 +13,13 @@ public class ClientHandler implements Runnable {
     private Socket clientSocket;
     private ArrayList<String> availableBooks;
     private ArrayList<String> borrowedBooks;
+    private Object libraryLock;
 
-    public ClientHandler(Socket clientSocket, ArrayList<String> availableBooks, ArrayList<String> borrowedBooks) {
+    public ClientHandler(Socket clientSocket, ArrayList<String> availableBooks, ArrayList<String> borrowedBooks, Object libraryLock) {
         this.clientSocket = clientSocket;
         this.availableBooks = availableBooks;
         this.borrowedBooks = borrowedBooks;
+        this.libraryLock = libraryLock;
     }
 
     @Override
@@ -57,22 +59,26 @@ public class ClientHandler implements Runnable {
                     command = command.toUpperCase();
 
                     if (command.equals("BORROW")) {
-                        if (availableBooks.contains(title)) {
-                            availableBooks.remove(title);
-                            borrowedBooks.add(title);
+                        synchronized (libraryLock) {
+                            if (availableBooks.contains(title)) {
+                                availableBooks.remove(title);
+                                borrowedBooks.add(title);
 
-                            writer.println(title + " has been borrowed successfully.");
-                        } else {
-                            writer.println(title + " is not available.");
+                                writer.println(title + " has been borrowed successfully.");
+                            } else {
+                                writer.println(title + " is not available.");
+                            }
                         }
                     } else if (command.equals("RETURN")) {
-                        if (borrowedBooks.contains(title)) {
-                            borrowedBooks.remove(title);
-                            availableBooks.add(title);
+                        synchronized (libraryLock) {
+                            if (borrowedBooks.contains(title)) {
+                                borrowedBooks.remove(title);
+                                availableBooks.add(title);
 
-                            writer.println(title + " has been returned successfully.");
-                        } else {
-                            writer.println("Cannot return " + title + " because it is not borrowed.");
+                                writer.println(title + " has been returned successfully.");
+                            } else {
+                                writer.println("Cannot return " + title + " because it is not borrowed.");
+                            }
                         }
                     } else if (command.equals("SEARCH")) {
 

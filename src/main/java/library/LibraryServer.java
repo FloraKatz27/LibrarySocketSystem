@@ -15,6 +15,8 @@ public class LibraryServer {
         ArrayList<String> availableBooks = new ArrayList<>();
         ArrayList<String> borrowedBooks = new ArrayList<>();
 
+        Object libraryLock = new Object();
+
         availableBooks.add("Harry Potter");
         availableBooks.add("Dune");
         availableBooks.add("The Hobbit");
@@ -34,7 +36,7 @@ public class LibraryServer {
 
                 System.out.println("A client has connected.");
 
-                ClientHandler handler = new ClientHandler(clientSocket, availableBooks, borrowedBooks);
+                ClientHandler handler = new ClientHandler(clientSocket, availableBooks, borrowedBooks, libraryLock);
 
                 Thread clientThread = new Thread(handler);
 
