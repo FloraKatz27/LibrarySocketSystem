@@ -32,7 +32,14 @@ public class Book {
         return available;
     }
 
-    public void setAvailable(boolean available) {
+    /*public void setAvailable(boolean available) {
         this.available = available;
+    }*/
+    public void borrow() {
+        available = false;
+    }
+
+    public void returnBook() {
+        available = true;
     }
 }

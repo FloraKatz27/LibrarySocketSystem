@@ -3,48 +3,82 @@ import java.util.ArrayList;
 
 public class LibraryManager {
 
-    ArrayList<String> availableBooks = new ArrayList<>();
-    ArrayList<String> borrowedBooks = new ArrayList<>();
+    ArrayList<Book> availableBooks = new ArrayList<>();
+    ArrayList<Book> borrowedBooks = new ArrayList<>();
 
     public LibraryManager() {
         availableBooks = new ArrayList<>();
         borrowedBooks = new ArrayList<>();
 
-        availableBooks.add("Harry Potter");
-        availableBooks.add("Dune");
-        availableBooks.add("The Hobbit");
-        availableBooks.add("1984");
+        availableBooks.add(new Book("Dune", "Frank Herbert", "111", 1965));
+        availableBooks.add(new Book("1984", "George Orwell", "222", 1949));
+        availableBooks.add(new Book("The Hobbit", "J.R.R. Tolkien", "333", 1937));
     }
 
     public String searchBook(String title) {
-        if (availableBooks.contains(title)) {
-            return title + " is available.";
-        } else if (borrowedBooks.contains(title)) {
-            return title + " is currently borrowed.";
-        } else {
-            return title + " was not found.";
+        for (Book book : availableBooks) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                return "Book available: " + book.getTitle() + " by " + book.getAuthor() + ", ISBN: " + book.getIsbn();
+            }
         }
+        return "Book not found.";
     }
 
     public synchronized String borrowBook(String title) {
-        if (availableBooks.contains(title)) {
+        Book bookToBorrow = null;
+
+        for (Book book : availableBooks) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                bookToBorrow = book;
+                break;
+            }
+        }
+        if (bookToBorrow == null) {
+            return "Book not found or unavailable.";
+        }
+        /*if (availableBooks.contains(title)) {
             availableBooks.remove(title);
             borrowedBooks.add(title);
 
             return title + " has been borrowed successfully.";
         } else {
             return title + " is not available.";
-        }
+        }*/
+        borrowedBooks.add(bookToBorrow);
+        availableBooks.remove(bookToBorrow);
+        //bookToBorrow.setAvailable(false);
+        bookToBorrow.borrow();
+
+        return "Book borrowed successfully: " + bookToBorrow.getTitle();
     }
 
     public synchronized String returnBook(String title) {
-        if (borrowedBooks.contains(title)) {
+        /*if (borrowedBooks.contains(title)) {
             borrowedBooks.remove(title);
             availableBooks.add(title);
 
             return title + " has been returned successfully.";
         } else {
             return "Cannot return " + title + " because it is not borrowed.";
+        */
+        Book bookToReturn = null;
+
+        for (Book book : borrowedBooks) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                bookToReturn = book;
+                break;
+            }
         }
+
+        if (bookToReturn == null) {
+            return "Book not found in borrowed books.";
+        }
+
+        availableBooks.add(bookToReturn);
+        borrowedBooks.remove(bookToReturn);
+        //bookToReturn.setAvailable(true);
+        bookToReturn.returnBook();
+
+        return "Book returned successfully: " + bookToReturn.getTitle();
     }
 }
