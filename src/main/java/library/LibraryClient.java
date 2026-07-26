@@ -16,15 +16,27 @@ public class LibraryClient {
 
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-            writer.println("SEARCH Dune");
+            BufferedReader serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            System.out.println("Request sent to server.");
+            BufferedReader keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            boolean connected = true;
 
-            String response = reader.readLine();
+            while (connected) {
+                System.out.print("Enter command: ");
 
-            System.out.println("Server replied: " + response);
+                String request = keyboardReader.readLine();
+
+                writer.println(request);
+
+                String response = serverReader.readLine();
+
+                System.out.println("Server replied: " + response);
+
+                if (request.equalsIgnoreCase("EXIT")) {
+                    connected = false;
+                }
+            }
         } catch (IOException e) {
             System.out.println("Client error:" + e.getMessage());
         }
