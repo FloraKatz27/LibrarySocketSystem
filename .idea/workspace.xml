@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="163e5da2-a1f4-43a4-baee-a5507bc48923" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/library/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/library/LibraryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/library/LibraryServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +45,8 @@
     "settings.editor.selected.configurable": "project.propCompiler"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="LibraryClient" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.LibraryClient">
+    <configuration name="LibraryClient" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="library.LibraryClient" />
       <module name="LibrarySocketSystem" />
       <method v="2">
