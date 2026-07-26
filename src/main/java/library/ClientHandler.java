@@ -1,8 +1,6 @@
 package library;
 
-import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,15 +9,14 @@ import java.io.PrintWriter;
 public class ClientHandler implements Runnable {
 
     private Socket clientSocket;
-    private ArrayList<String> availableBooks;
-    private ArrayList<String> borrowedBooks;
-    private Object libraryLock;
+    //private ArrayList<String> availableBooks;
+    //private ArrayList<String> borrowedBooks;
+    //private Object libraryLock;
+    private LibraryManager libraryManager;
 
-    public ClientHandler(Socket clientSocket, ArrayList<String> availableBooks, ArrayList<String> borrowedBooks, Object libraryLock) {
+    public ClientHandler(Socket clientSocket, LibraryManager libraryManager) {
         this.clientSocket = clientSocket;
-        this.availableBooks = availableBooks;
-        this.borrowedBooks = borrowedBooks;
-        this.libraryLock = libraryLock;
+        this.libraryManager = libraryManager;
     }
 
     @Override
@@ -59,7 +56,7 @@ public class ClientHandler implements Runnable {
                     command = command.toUpperCase();
 
                     if (command.equals("BORROW")) {
-                        synchronized (libraryLock) {
+                        /*synchronized (libraryLock) {
                             if (availableBooks.contains(title)) {
                                 availableBooks.remove(title);
                                 borrowedBooks.add(title);
@@ -68,9 +65,12 @@ public class ClientHandler implements Runnable {
                             } else {
                                 writer.println(title + " is not available.");
                             }
-                        }
+                        }*/
+                        String response = libraryManager.borrowBook(title);
+
+                        writer.println(response);
                     } else if (command.equals("RETURN")) {
-                        synchronized (libraryLock) {
+                        /*synchronized (libraryLock)
                             if (borrowedBooks.contains(title)) {
                                 borrowedBooks.remove(title);
                                 availableBooks.add(title);
@@ -79,14 +79,14 @@ public class ClientHandler implements Runnable {
                             } else {
                                 writer.println("Cannot return " + title + " because it is not borrowed.");
                             }
-                        }
+                        }*/
+                        String response = libraryManager.returnBook(title);
+
+                        writer.println(response);
                     } else if (command.equals("SEARCH")) {
 
-                        if (availableBooks.contains(title)) {
-                            writer.println(title + " is available.");
-                        } else {
-                            writer.println(title + " is not available.");
-                        }
+                        String response = libraryManager.searchBook(title);
+                        writer.println(response);
                     } else {
                         writer.println("Unknown command.");
                     }

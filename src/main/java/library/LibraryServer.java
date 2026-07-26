@@ -12,15 +12,17 @@ public class LibraryServer {
     public static void main(String[] args) {
         System.out.println("Starting server...");
 
-        ArrayList<String> availableBooks = new ArrayList<>();
-        ArrayList<String> borrowedBooks = new ArrayList<>();
+        //ArrayList<String> availableBooks = new ArrayList<>();
+        //ArrayList<String> borrowedBooks = new ArrayList<>();
 
         Object libraryLock = new Object();
 
-        availableBooks.add("Harry Potter");
-        availableBooks.add("Dune");
-        availableBooks.add("The Hobbit");
-        availableBooks.add("1984");
+        //availableBooks.add("Harry Potter");
+        //availableBooks.add("Dune");
+        //availableBooks.add("The Hobbit");
+        //availableBooks.add("1984");
+
+        LibraryManager libraryManager = new LibraryManager();
 
         //ServerSocket serverSocket;
         try {
@@ -36,7 +38,7 @@ public class LibraryServer {
 
                 System.out.println("A client has connected.");
 
-                ClientHandler handler = new ClientHandler(clientSocket, availableBooks, borrowedBooks, libraryLock);
+                ClientHandler handler = new ClientHandler(clientSocket, libraryManager);
 
                 Thread clientThread = new Thread(handler);
 
