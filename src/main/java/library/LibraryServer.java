@@ -5,11 +5,20 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 public class LibraryServer {
     public static void main(String[] args) {
         System.out.println("Starting server...");
+
+        ArrayList<String> availableBooks = new ArrayList<>();
+        ArrayList<String> borrowedBooks = new ArrayList<>();
+
+        availableBooks.add("Harry Potter");
+        availableBooks.add("Dune");
+        availableBooks.add("The Hobbit");
+        availableBooks.add("1984");
 
         //ServerSocket serverSocket;
         try {
@@ -42,11 +51,30 @@ public class LibraryServer {
                 command = command.toUpperCase();
 
                 if (command.equals("BORROW")) {
-                    writer.println("Borrowing: " + parts[1]);
+                    if (availableBooks.contains(title)) {
+                        availableBooks.remove(title);
+                        borrowedBooks.add(title);
+
+                        writer.println(title + " has been borrowed successfully.");
+                    } else {
+                        writer.println(title + " is not available.");
+                    }
                 } else if (command.equals("RETURN")) {
-                    writer.println("Returning: " + parts[1]);
+                    if (borrowedBooks.contains(title)) {
+                        borrowedBooks.remove(title);
+                        availableBooks.add(title);
+
+                        writer.println(title + " has been returned successfully.");
+                    } else {
+                        writer.println("Cannot return " + title + " because it is not borrowed.");
+                    }
                 } else if (command.equals("SEARCH")) {
-                    writer.println("Searching for: " + parts[1]);
+
+                    if (availableBooks.contains(title)) {
+                        writer.println(title + " is available.");
+                    } else {
+                        writer.println(title + " is not available.");
+                    }
                 } else {
                     writer.println("Unknown command.");
                 }
