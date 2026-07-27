@@ -40,8 +40,10 @@ public class LibraryManager {
         return "Book not found.";
     }
 
-    public synchronized String borrowBook(String title) {
-        Book bookToBorrow = findBookByTitle(availableBooks, title);
+    //public synchronized String borrowBook(String title) {
+    public synchronized void borrowBook(String title)
+        throws BookNotFoundException, BookAlreadyBorrowedException {
+            Book availableBook = findBookByTitle(availableBooks, title);
         //Book bookToBorrow = null;
 
         //for (Book book : availableBooks) {
@@ -50,9 +52,22 @@ public class LibraryManager {
                 //break;
             //}
         //}
-        if (bookToBorrow == null) {
-            return "Book not found or unavailable.";
+        if (availableBook != null) {
+        //if (bookToBorrow == null) {
+            //return "Book not found or unavailable.";
+            availableBooks.remove(availableBook);
+            availableBook.borrow();
+            borrowedBooks.add(availableBook);
+            return;
         }
+
+        Book borrowedBook = findBookByTitle(borrowedBooks, title);
+
+        if (borrowedBook != null) {
+            throw new BookAlreadyBorrowedException(title);
+        }
+
+        throw new BookNotFoundException(title);
         /*if (availableBooks.contains(title)) {
             availableBooks.remove(title);
             borrowedBooks.add(title);
@@ -61,15 +76,26 @@ public class LibraryManager {
         } else {
             return title + " is not available.";
         }*/
-        borrowedBooks.add(bookToBorrow);
-        availableBooks.remove(bookToBorrow);
+        //borrowedBooks.add(bookToBorrow);
+        //borrowedBooks.add(book);
+        //availableBooks.remove(book);
+        //availableBooks.remove(bookToBorrow);
         //bookToBorrow.setAvailable(false);
-        bookToBorrow.borrow();
-
-        return "Book borrowed successfully: " + bookToBorrow.getTitle();
+        //bookToBorrow.borrow();
+        //book.borrow();
     }
 
-    public synchronized String returnBook(String title) {
+    public synchronized void returnBook(String title) throws BookNotFoundException {
+        Book borrowedBook = findBookByTitle(borrowedBooks, title);
+
+        if(borrowedBook == null) {
+            throw new BookNotFoundException(title);
+        }
+
+        borrowedBooks.remove(borrowedBook);
+        borrowedBook.returnBook();
+        availableBooks.add(borrowedBook);
+
         /*if (borrowedBooks.contains(title)) {
             borrowedBooks.remove(title);
             availableBooks.add(title);
@@ -86,18 +112,18 @@ public class LibraryManager {
                 break;
             }
         }*/
-        Book bookToReturn = findBookByTitle(borrowedBooks, title);
+        //Book bookToReturn = findBookByTitle(borrowedBooks, title);
 
-        if (bookToReturn == null) {
-            return "Book not found in borrowed books.";
-        }
+        //if (bookToReturn == null) {
+            //return "Book not found in borrowed books.";
+        //}
 
-        availableBooks.add(bookToReturn);
-        borrowedBooks.remove(bookToReturn);
+        //availableBooks.add(bookToReturn);
+        //borrowedBooks.remove(bookToReturn);
         //bookToReturn.setAvailable(true);
-        bookToReturn.returnBook();
+        //bookToReturn.returnBook();
 
-        return "Book returned successfully: " + bookToReturn.getTitle();
+       //return "Book returned successfully: " + bookToRetur.getTitle();
     }
 
     private Book findBookByTitle(ArrayList<Book> books, String title) {

@@ -66,9 +66,14 @@ public class ClientHandler implements Runnable {
                                 writer.println(title + " is not available.");
                             }
                         }*/
-                        String response = libraryManager.borrowBook(title);
+                        try {
 
-                        writer.println(response);
+                            libraryManager.borrowBook(title);
+
+                            writer.println(title + " has been borrowed successfully.");
+                        } catch (BookAlreadyBorrowedException | BookNotFoundException e) {
+                            writer.println(e.getMessage());
+                        }
                     } else if (command.equals("RETURN")) {
                         /*synchronized (libraryLock)
                             if (borrowedBooks.contains(title)) {
@@ -80,9 +85,13 @@ public class ClientHandler implements Runnable {
                                 writer.println("Cannot return " + title + " because it is not borrowed.");
                             }
                         }*/
-                        String response = libraryManager.returnBook(title);
+                        try {
+                            libraryManager.returnBook(title);
 
-                        writer.println(response);
+                            writer.println(title + " has been returned successfully.");
+                        } catch (BookNotFoundException e) {
+                            writer.println(e.getMessage());
+                        }
                     } else if (command.equals("SEARCH")) {
 
                         String response = libraryManager.searchBook(title);
