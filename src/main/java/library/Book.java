@@ -42,4 +42,9 @@ public class Book {
     public void returnBook() {
         available = true;
     }
+
+    @Override
+    public String toString() {
+        return title + " by " + author + " (" + publicationYear + ") - ISBN: " + isbn;
+    }
 }

@@ -26,13 +26,15 @@ public class LibraryManager {
         Book book = findBookByTitle(availableBooks, title);
 
         if (book != null) {
-            return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + "- Status: Available";
+            //return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + "- Status: Available";
+            return "Available: " + book;
         }
 
         book = findBookByTitle(borrowedBooks, title);
 
         if (book != null) {
-            return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + " - Status: Borrowed";
+            //return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + " - Status: Borrowed";
+            return "Borrowed: " + book;
         }
 
         return "Book not found.";
