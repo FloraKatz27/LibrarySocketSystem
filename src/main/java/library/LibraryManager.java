@@ -16,23 +16,38 @@ public class LibraryManager {
     }
 
     public String searchBook(String title) {
-        for (Book book : availableBooks) {
+        /*for (Book book : availableBooks) {
             if (book.getTitle().equalsIgnoreCase(title)) {
                 return "Book available: " + book.getTitle() + " by " + book.getAuthor() + ", ISBN: " + book.getIsbn();
             }
         }
+        return "Book not found."; */
+
+        Book book = findBookByTitle(availableBooks, title);
+
+        if (book != null) {
+            return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + "- Status: Available";
+        }
+
+        book = findBookByTitle(borrowedBooks, title);
+
+        if (book != null) {
+            return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + " - Status: Borrowed";
+        }
+
         return "Book not found.";
     }
 
     public synchronized String borrowBook(String title) {
-        Book bookToBorrow = null;
+        Book bookToBorrow = findBookByTitle(availableBooks, title);
+        //Book bookToBorrow = null;
 
-        for (Book book : availableBooks) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
-                bookToBorrow = book;
-                break;
-            }
-        }
+        //for (Book book : availableBooks) {
+            //if (book.getTitle().equalsIgnoreCase(title)) {
+                //bookToBorrow = book;
+                //break;
+            //}
+        //}
         if (bookToBorrow == null) {
             return "Book not found or unavailable.";
         }
@@ -61,14 +76,15 @@ public class LibraryManager {
         } else {
             return "Cannot return " + title + " because it is not borrowed.";
         */
-        Book bookToReturn = null;
+        //Book bookToReturn = null;
 
-        for (Book book : borrowedBooks) {
+        /*for (Book book : borrowedBooks) {
             if (book.getTitle().equalsIgnoreCase(title)) {
                 bookToReturn = book;
                 break;
             }
-        }
+        }*/
+        Book bookToReturn = findBookByTitle(borrowedBooks, title);
 
         if (bookToReturn == null) {
             return "Book not found in borrowed books.";
@@ -80,5 +96,15 @@ public class LibraryManager {
         bookToReturn.returnBook();
 
         return "Book returned successfully: " + bookToReturn.getTitle();
+    }
+
+    private Book findBookByTitle(ArrayList<Book> books, String title) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                return book;
+            }
+        }
+
+        return null;
     }
 }
