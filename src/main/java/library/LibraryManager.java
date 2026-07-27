@@ -27,7 +27,7 @@ public class LibraryManager {
 
         if (book != null) {
             //return book.getTitle() + " by: " + book.getAuthor() + ", (" + book.getPublicationYear() + ") - ISBN:" + book.getIsbn() + "- Status: Available";
-            return "Available: " + book;
+            return book.toString();
         }
 
         book = findBookByTitle(borrowedBooks, title);

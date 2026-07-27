@@ -5,14 +5,16 @@ public class Book {
     private String author;
     private String isbn;
     private int publicationYear;
-    private boolean available;
+    //private boolean available;
+    private BookStatus status;
 
     public Book(String title, String author, String isbn, int publicationYear) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.publicationYear = publicationYear;
-        this.available = true;
+        //this.available = true;
+        status = BookStatus.AVAILABLE;
     }
 
     public String getTitle() {
@@ -28,23 +30,30 @@ public class Book {
     public int getPublicationYear() {
         return publicationYear;
     }
+
+    public BookStatus getStatus() {
+        return status;
+    }
     public boolean isAvailable() {
-        return available;
+        //return available;
+        return status == BookStatus.AVAILABLE;
     }
 
     /*public void setAvailable(boolean available) {
         this.available = available;
     }*/
     public void borrow() {
-        available = false;
+        //available = false;
+        status = BookStatus.BORROWED;
     }
 
     public void returnBook() {
-        available = true;
+        //available = true;
+        status = BookStatus.AVAILABLE;
     }
 
     @Override
     public String toString() {
-        return title + " by " + author + " (" + publicationYear + ") - ISBN: " + isbn;
+        return title + " by " + author + " (" + publicationYear + ") - ISBN: " + isbn + " - Status: " + status;
     }
 }
